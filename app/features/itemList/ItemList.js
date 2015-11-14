@@ -1,3 +1,5 @@
+import './ItemList.scss';
+
 import React from "react";
 import ItemLine from './ItemLine';
 import ItemStore from '../../stores/ItemStore';
@@ -27,7 +29,7 @@ class ItemList extends React.Component {
 
         return (
             <div className="item-list">
-                Hello from Item List
+                <h1>Hello from Item List</h1>
                 <ul>
                     {itemLineElements}
                 </ul>
