@@ -1,4 +1,4 @@
-jest.dontMock('../home');
+jest.dontMock('../Home');
 //jest.dontMock('object-assign');
 
 var React = require('react');
