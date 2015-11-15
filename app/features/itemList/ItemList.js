@@ -19,7 +19,7 @@ class ItemList extends React.Component {
         //} else {
         //    tweetElement = <Tweet tweet={tweet}/>
         //}
-        return <li key={item.id}><ItemLine item={item}/></li>
+        return <div className="" key={item.id}><ItemLine item={item}/></div>
     }
 
     render() {
@@ -30,9 +30,9 @@ class ItemList extends React.Component {
         return (
             <div className="item-list">
                 <h1>Hello from Item List</h1>
-                <ul>
+                <div className="list-group">
                     {itemLineElements}
-                </ul>
+                </div>
             </div>
         );
     }

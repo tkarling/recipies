@@ -28,7 +28,8 @@ class ItemStore extends EventEmitter {
             product: 'milk',
             aisle: 'dairy',
             amount: 2,
-            recipe: 'favorites'
+            recipe: 'favorites',
+            unit: 'gallons'
         }, {
             id: 2,
             product: 'bread',
@@ -40,7 +41,8 @@ class ItemStore extends EventEmitter {
             product: 'eggs',
             aisle: 'dairy',
             amount: 1,
-            recipe: 'favorites'
+            recipe: 'favorites',
+            unit: 'dozen'
         }];
     }
 };

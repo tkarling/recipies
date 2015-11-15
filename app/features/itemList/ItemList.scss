@@ -1,5 +1,11 @@
 .item-list {
-  h1 {
-    color:red;
+  @import "../../global_partial";
+
+  .padding-left {
+    padding-left: $padding-base-vertical;
+  }
+
+  .lighter {
+    opacity: 0.5;
   }
 }
