@@ -36,6 +36,12 @@ function addItem(item) {
     console.log("adding item", item);
 }
 
+function saveItem(item, newValues) {
+    for(var prop in newValues) {
+        item[prop] = newValues[prop];
+    }
+}
+
 function emitChange() {
     itemStore.emit(CHANGE_EVENT);
 }
@@ -57,9 +63,13 @@ class ItemStore extends EventEmitter {
 
 
 function handleAction(action) {
+    //console.log("handleAction", action.type);
     if(action.type === 'add_item') {
         addItem(action.item);
         emitChange();
+    } else if(action.type === 'save_item') {
+            saveItem(action.item, action.newValues);
+            emitChange();
     } else if(action.type === 'toggle_bought') {
         toggleBought(action.item);
         emitChange();

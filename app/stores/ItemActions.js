@@ -19,4 +19,13 @@ export default class ItemActions {
         AppDispatcher.dispatch(action);
     }
 
+    static saveItem(item, newValues) {
+        var action = {
+            type: 'save_item',
+            item: item,
+            newValues: newValues
+        };
+
+        AppDispatcher.dispatch(action);
+    }
 };
