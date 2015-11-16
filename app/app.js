@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Application from './Application';
 
-console.log("moi");
+//console.log("moi");
 
 ReactDOM.render(
     <Application name="World"/>,

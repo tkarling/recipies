@@ -3,7 +3,34 @@ var EventEmitter = require('events').EventEmitter;
 
 var CHANGE_EVENT = 'change';
 
-var tweet = null;
+var items = [{
+    id: 1,
+    product: 'milk',
+    aisle: 'dairy',
+    amount: 2,
+    recipe: 'favorites',
+    unit: 'gallons',
+    bought: true
+}, {
+    id: 2,
+    product: 'bread',
+    aisle: 'bakery',
+    amount: 1,
+    recipe: 'favorites',
+    bought: false
+}, {
+    id: 3,
+    product: 'eggs',
+    aisle: 'dairy',
+    amount: 1,
+    recipe: 'favorites',
+    unit: 'dozen',
+    bought: false
+}];
+
+function toggleBought(item) {
+    item.bought = ! item.bought;
+}
 
 function addItem(item) {
     console.log("adding item", item);
@@ -12,6 +39,7 @@ function addItem(item) {
 function emitChange() {
     itemStore.emit(CHANGE_EVENT);
 }
+
 
 class ItemStore extends EventEmitter {
     addChangeListener(callback) {
@@ -23,27 +51,7 @@ class ItemStore extends EventEmitter {
     }
 
     getItems () {
-        return [{
-            id: 1,
-            product: 'milk',
-            aisle: 'dairy',
-            amount: 2,
-            recipe: 'favorites',
-            unit: 'gallons'
-        }, {
-            id: 2,
-            product: 'bread',
-            aisle: 'bakery',
-            amount: 1,
-            recipe: 'favorites'
-        }, {
-            id: 3,
-            product: 'eggs',
-            aisle: 'dairy',
-            amount: 1,
-            recipe: 'favorites',
-            unit: 'dozen'
-        }];
+        return items;
     }
 };
 
@@ -51,6 +59,9 @@ class ItemStore extends EventEmitter {
 function handleAction(action) {
     if(action.type === 'add_item') {
         addItem(action.item);
+        emitChange();
+    } else if(action.type === 'toggle_bought') {
+        toggleBought(action.item);
         emitChange();
     }
 }

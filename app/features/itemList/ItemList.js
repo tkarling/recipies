@@ -5,27 +5,34 @@ import ItemLine from './ItemLine';
 import ItemStore from '../../stores/ItemStore';
 
 class ItemList extends React.Component {
-    getLineElement (item) {
-        //var tweet = this.props.tweets[tweetId];
-        //var handleRemoveTweetFromCollection = this.removeTweetFromCollection;
-        var tweetElement;
+    constructor() {
+        super();
+        this.state = {
+            items: ItemStore.getItems()
+        }
+    }
 
-        //if (handleRemoveTweetFromCollection) {
-        //    tweetElement = (
-        //        <Tweet
-        //            tweet={tweet}
-        //            onImageClick={handleRemoveTweetFromCollection}/>
-        //    );
-        //} else {
-        //    tweetElement = <Tweet tweet={tweet}/>
-        //}
+    onItemsChange() {
+        this.setState({
+            items: ItemStore.getItems()
+        });
+    }
+
+    componentDidMount() {
+        ItemStore.addChangeListener(this.onItemsChange.bind(this));
+    }
+
+    componentWillUnmount() {
+        ItemStore.removeChangeListener(this.onItemsChange.bind(this));
+    }
+
+    getLineElement (item) {
         return <div className="" key={item.id}><ItemLine item={item}/></div>
     }
 
     render() {
-        var items = ItemStore.getItems();
-        console.log("ItemList items", items);
-        var itemLineElements = items.map(this.getLineElement.bind(this));
+        //console.log("ItemList items", this.state.items);
+        var itemLineElements = this.state .items.map(this.getLineElement.bind(this));
 
         return (
             <div className="item-list">
