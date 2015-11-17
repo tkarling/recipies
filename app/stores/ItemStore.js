@@ -6,7 +6,7 @@ var CHANGE_EVENT = 'change';
 var items = [{
     id: 1,
     product: 'milk',
-    aisle: 'dairy',
+    aisle: 1,
     amount: 2,
     recipe: 'favorites',
     unit: 'gallons',
@@ -14,14 +14,14 @@ var items = [{
 }, {
     id: 2,
     product: 'bread',
-    aisle: 'bakery',
+    aisle: 2,
     amount: 1,
     recipe: 'favorites',
     bought: false
 }, {
     id: 3,
     product: 'eggs',
-    aisle: 'dairy',
+    aisle: 1,
     amount: 1,
     recipe: 'favorites',
     unit: 'dozen',
@@ -52,7 +52,7 @@ class ItemStore extends EventEmitter {
         this.on(CHANGE_EVENT, callback);
     }
 
-    removeChangeListene(callback) {
+    removeChangeListener(callback) {
         this.removeListener(CHANGE_EVENT, callback);
     }
 

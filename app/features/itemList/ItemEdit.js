@@ -1,6 +1,7 @@
 import React from "react";
 var classNames = require('classnames');
 import ItemActions from '../../stores/ItemActions';
+import AisleDropdown from './AisleDropdown';
 
 var ESCAPE_KEY = 27;
 var ENTER_KEY = 13;
@@ -52,9 +53,9 @@ class ItemEdit extends React.Component {
         });
     }
 
-    handleAisleChange(event) {
+    handleAisleChange(value) {
         this.setState({
-            editAisle: event.target.value
+            editAisle: value
         });
     }
 
@@ -74,9 +75,9 @@ class ItemEdit extends React.Component {
                                    onChange={this.handleProductChange.bind(this)} onKeyDown={this.handleKeyDown.bind(this)}/>
                         </div>
                         <div className="form-group">
-                            <input type="text" className="form-conrol width-40" placeholder="Aisle"
-                                   value={this.state.editAisle}
-                                   onChange={this.handleAisleChange.bind(this)} onKeyDown={this.handleKeyDown.bind(this)}/>
+                            <span className="form-conrol width-40">
+                                <AisleDropdown value={this.props.item.aisle} handleAisleChange={this.handleAisleChange.bind(this)}/>
+                            </span>
                             <span className="padding-left width-40">{this.props.item.recipe}</span>
                             <button type="button" className="btn btn-success" onClick={this.handleSubmit.bind(this)}>
                                 <span className="glyphicon glyphicon-ok" aria-hidden="true"></span>

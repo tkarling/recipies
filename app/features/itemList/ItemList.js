@@ -32,7 +32,7 @@ class ItemList extends React.Component {
 
     render() {
         //console.log("ItemList items", this.state.items);
-        var itemLineElements = this.state .items.map(this.getLineElement.bind(this));
+        var itemLineElements = this.state.items.map(this.getLineElement.bind(this));
 
         return (
             <div className="item-list">

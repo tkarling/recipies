@@ -2,6 +2,7 @@ import React from "react";
 var classNames = require('classnames');
 import ItemActions from '../../stores/ItemActions';
 import ItemEdit from './ItemEdit';
+import AisleStore from '../../stores/AisleStore';
 
 
 class ItemLine extends React.Component {
@@ -20,6 +21,11 @@ class ItemLine extends React.Component {
 
     conditionalSpan(value) {
         return value ? <span className="padding-left">{value}</span> : "";
+    }
+
+    getAisleName() {
+        var aisleName =  AisleStore.getAisleName(this.props.item.aisle);
+        return aisleName;
     }
 
     nonEditableItem() {
@@ -48,7 +54,7 @@ class ItemLine extends React.Component {
                         </h4>
 
                         <p className="list-group-item-text line-throughable">
-                            <span className={aisleColorClass}>{this.props.item.aisle}</span>
+                            <span className={aisleColorClass}>{this.getAisleName()}</span>
                             <span className="padding-left">{this.props.item.recipe}</span>
                         </p>
                     </div>
