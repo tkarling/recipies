@@ -1,9 +1,13 @@
 import './ItemList.scss';
 
 import React from "react";
+
 import ItemLine from './ItemLine';
-import ItemStore from '../../stores/ItemStore';
 import Button from '../../components/Button';
+
+import ItemStore from '../../stores/ItemStore';
+import ItemActions from '../../stores/ItemActions';
+
 
 
 class ItemList extends React.Component {
@@ -18,6 +22,12 @@ class ItemList extends React.Component {
     toggleDeleting() {
         this.setState({
             showDeleting: ! this.state.showDeleting
+        });
+    }
+
+    addItem() {
+        ItemActions.addItem({
+           product: 'product'
         });
     }
 
@@ -47,6 +57,7 @@ class ItemList extends React.Component {
             <div className="item-list">
                 <h3>
                     Shopping List
+                    <Button type="add" handleClick={this.addItem.bind(this)}/>
                     <Button type="delete" handleClick={this.toggleDeleting.bind(this)}/>
                 </h3>
                 <div className="list-group">

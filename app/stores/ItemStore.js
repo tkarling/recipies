@@ -32,8 +32,10 @@ function toggleBought(item) {
     item.bought = ! item.bought;
 }
 
+var nextIndex = items.length + 1;
 function addItem(item) {
-    console.log("adding item", item);
+    item.id = nextIndex++;
+    items.unshift(item);
 }
 
 function deleteItem(item) {
@@ -94,7 +96,7 @@ ItemStore.dispatchToken = AppDispatcher.register(handleAction);
 
 export default itemStore;
 
-// following for testing
+ //following for testing
 //function logItems() {
 //    items.forEach((item) => {
 //       console.log(item.product);
@@ -103,6 +105,6 @@ export default itemStore;
 //
 //console.log("itemStore before");
 //logItems();
-//deleteItem(items[1]);
+//addItem({product:"apples", amount: 1});
 //console.log("itemStore after");
 //logItems();
