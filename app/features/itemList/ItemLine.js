@@ -22,7 +22,7 @@ class ItemLine extends React.Component {
     }
 
     conditionalSpan(value) {
-        return value ? <span className="padding-left">{value}</span> : "";
+        return value ? <span className="margin-right">{value}</span> : "";
     }
 
     getAisleName() {
@@ -40,11 +40,18 @@ class ItemLine extends React.Component {
             'completed': this.props.item.bought
         });
         var aisleColorClass = classNames({
+            'margin-right': true,
             'text-primary': !this.props.item.bought
         });
         var deleteButtonClass = classNames({
             'input-group-addon': true,
             'hidden': ! this.props.showDeleting
+        });
+        var indexClass = classNames({
+            'badge': true,
+            'lighter': true,
+            'margin-right': true,
+            'hidden': ! this.props.speech
         });
         return (
             <div className="item-line list-group-item">
@@ -55,17 +62,17 @@ class ItemLine extends React.Component {
                                onChange={ItemActions.toggleBought.bind(this, this.props.item)}/>
                     </span>
 
-                    <div className="padding-left line-throughable" onClick={this.toggleEditing.bind(this)}>
+                    <div className="line-throughable" onClick={this.toggleEditing.bind(this)}>
                         <h4 className="list-group-item-heading">
-                            <span className="badge lighter">{this.props.item.id}</span>
+                            <span className={indexClass}>{this.props.item.id}</span>
                             <span>{this.conditionalSpan(this.props.item.amount)}</span>
-                            <span>{this.conditionalSpan(this.props.item.unit)}</span>
-                            <span className="padding-left">{this.props.item.product}</span>
+                            <span>{this.conditionalSpan(this.props.item.unit, true)}</span>
+                            <span>{this.props.item.product}</span>
                         </h4>
 
                         <p className="list-group-item-text">
                             <span className={aisleColorClass}>{this.getAisleName()}</span>
-                            <span className="padding-left">{this.props.item.recipe}</span>
+                            <span>{this.props.item.recipe}</span>
                         </p>
                     </div>
 

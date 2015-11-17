@@ -85,7 +85,7 @@ class ItemEdit extends React.Component {
                                     <AisleDropdown value={this.props.item.aisle}
                                                    handleAisleChange={this.handleAisleChange.bind(this)}/>
                                 </span>
-                                <span className="padding-left width-40">{this.props.item.recipe}</span>
+                                <span className="width-40">{this.props.item.recipe}</span>
                             </div>
                         </div>
                     </div>

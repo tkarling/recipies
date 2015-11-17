@@ -15,13 +15,20 @@ class ItemList extends React.Component {
         super();
         this.state = {
             items: ItemStore.getItems(),
-            showDeleting: false
+            showDeleting: false,
+            speech: false
         }
     }
 
     toggleDeleting() {
         this.setState({
             showDeleting: ! this.state.showDeleting
+        });
+    }
+
+    toggleSpeech() {
+        this.setState({
+            speech: ! this.state.speech
         });
     }
 
@@ -46,7 +53,11 @@ class ItemList extends React.Component {
     }
 
     getLineElement (item) {
-        return <div className="" key={item.id}><ItemLine item={item} showDeleting={this.state.showDeleting}/></div>
+        return (
+            <div className="" key={item.id}>
+                <ItemLine item={item} showDeleting={this.state.showDeleting} speech={this.state.speech}/>
+            </div>
+        );
     }
 
     render() {
@@ -57,6 +68,7 @@ class ItemList extends React.Component {
             <div className="item-list">
                 <h3>
                     Shopping List
+                    <Button type="microphone" handleClick={this.toggleSpeech.bind(this)}/>
                     <Button type="add" handleClick={this.addItem.bind(this)}/>
                     <Button type="delete" handleClick={this.toggleDeleting.bind(this)}/>
                 </h3>
