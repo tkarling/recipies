@@ -13,7 +13,7 @@ var items = [{
     bought: true
 }, {
     id: 2,
-    product: 'bread',
+    product: 'very long name of a product this is',
     aisle: 2,
     amount: 1,
     recipe: 'favorites',
@@ -34,6 +34,15 @@ function toggleBought(item) {
 
 function addItem(item) {
     console.log("adding item", item);
+}
+
+function deleteItem(item) {
+    for(var i = 0; i < items.length; i++) {
+        if(item.id === items[i].id) {
+            items.splice(i, 1);
+            return;
+        }
+    }
 }
 
 function saveItem(item, newValues) {
@@ -67,6 +76,9 @@ function handleAction(action) {
     if(action.type === 'add_item') {
         addItem(action.item);
         emitChange();
+    } else if(action.type === 'delete_item') {
+        deleteItem(action.item);
+        emitChange();
     } else if(action.type === 'save_item') {
             saveItem(action.item, action.newValues);
             emitChange();
@@ -79,4 +91,18 @@ function handleAction(action) {
 var itemStore = new ItemStore();
 ItemStore.dispatchToken = AppDispatcher.register(handleAction);
 
+
 export default itemStore;
+
+// following for testing
+//function logItems() {
+//    items.forEach((item) => {
+//       console.log(item.product);
+//    });
+//}
+//
+//console.log("itemStore before");
+//logItems();
+//deleteItem(items[1]);
+//console.log("itemStore after");
+//logItems();

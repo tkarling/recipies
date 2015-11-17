@@ -26,6 +26,15 @@
     opacity: 0.5;
   }
 
+  h3 {
+    margin-left: $padding-base-vertical;
+    margin-right: $padding-base-vertical;
+  }
+
+  Button {
+    float:right;
+  }
+
   .item-line {
     .input-group-addon {
       background-color: transparent;

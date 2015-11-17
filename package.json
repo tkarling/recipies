@@ -15,7 +15,9 @@
       "js"
     ],
     "unmockedModulePathPatterns": [
-      "<rootDir>/node_modules"
+      "<rootDir>/node_modules",
+      "<rootDir>/dist"
+
     ]
   },
   "author": "Tuija",

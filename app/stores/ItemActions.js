@@ -19,6 +19,15 @@ export default class ItemActions {
         AppDispatcher.dispatch(action);
     }
 
+    static deleteItem(item) {
+        var action = {
+            type: 'delete_item',
+            item: item
+        };
+
+        AppDispatcher.dispatch(action);
+    }
+
     static saveItem(item, newValues) {
         var action = {
             type: 'save_item',
@@ -28,4 +37,5 @@ export default class ItemActions {
 
         AppDispatcher.dispatch(action);
     }
+
 };

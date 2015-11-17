@@ -3,13 +3,22 @@ import './ItemList.scss';
 import React from "react";
 import ItemLine from './ItemLine';
 import ItemStore from '../../stores/ItemStore';
+import Button from '../../components/Button';
+
 
 class ItemList extends React.Component {
     constructor() {
         super();
         this.state = {
-            items: ItemStore.getItems()
+            items: ItemStore.getItems(),
+            showDeleting: false
         }
+    }
+
+    toggleDeleting() {
+        this.setState({
+            showDeleting: ! this.state.showDeleting
+        });
     }
 
     onItemsChange() {
@@ -27,7 +36,7 @@ class ItemList extends React.Component {
     }
 
     getLineElement (item) {
-        return <div className="" key={item.id}><ItemLine item={item}/></div>
+        return <div className="" key={item.id}><ItemLine item={item} showDeleting={this.state.showDeleting}/></div>
     }
 
     render() {
@@ -36,7 +45,10 @@ class ItemList extends React.Component {
 
         return (
             <div className="item-list">
-                <h1>Hello from Item List</h1>
+                <h3>
+                    Shopping List
+                    <Button type="delete" handleClick={this.toggleDeleting.bind(this)}/>
+                </h3>
                 <div className="list-group">
                     {itemLineElements}
                 </div>

@@ -2,6 +2,7 @@ import React from "react";
 var classNames = require('classnames');
 import ItemActions from '../../stores/ItemActions';
 import AisleDropdown from './AisleDropdown';
+import Button from '../../components/Button';
 
 var ESCAPE_KEY = 27;
 var ENTER_KEY = 13;
@@ -9,11 +10,11 @@ var ENTER_KEY = 13;
 class ItemEdit extends React.Component {
     constructor(props) {
         super(props);
-        this.state =  {
-                editAmount: props.item.amount,
-                editUnit: props.item.unit,
-                editProduct: props.item.product,
-                editAisle: props.item.aisle,
+        this.state = {
+            editAmount: props.item.amount,
+            editUnit: props.item.unit,
+            editProduct: props.item.product,
+            editAisle: props.item.aisle,
         }
     }
 
@@ -60,31 +61,38 @@ class ItemEdit extends React.Component {
     }
 
     render() {
-        return (<div className="item-line">
-                <form className="form-inline panel panel-default">
-                    <div className="align-left">
-                        <div className="form-group">
-                            <input type="text" className="form-conrol width-10" placeholder="Amount"
-                                   value={this.state.editAmount}
-                                   onChange={this.handleAmountChange.bind(this)} onKeyDown={this.handleKeyDown.bind(this)}/>
-                            <input type="text" className="form-conrol width-20 margin-left" placeholder="Unit"
-                                   value={this.state.editUnit}
-                                   onChange={this.handleUnitChange.bind(this)} onKeyDown={this.handleKeyDown.bind(this)}/>
-                            <input type="text" className="form-conrol width-60 margin-left" placeholder="Name"
-                                   value={this.state.editProduct}
-                                   onChange={this.handleProductChange.bind(this)} onKeyDown={this.handleKeyDown.bind(this)}/>
-                        </div>
-                        <div className="form-group">
-                            <span className="form-conrol width-40">
-                                <AisleDropdown value={this.props.item.aisle} handleAisleChange={this.handleAisleChange.bind(this)}/>
-                            </span>
-                            <span className="padding-left width-40">{this.props.item.recipe}</span>
-                            <button type="button" className="btn btn-success" onClick={this.handleSubmit.bind(this)}>
-                                <span className="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                            </button>
+        return (
+            <div className="item-line panel panel-default list-group-item">
+                <span className="input-group">
+                    <div className="form-inline">
+                        <div className="align-left">
+                            <div className="form-group">
+                                <input type="text" className="form-conrol width-10" placeholder="Amount"
+                                       value={this.state.editAmount}
+                                       onChange={this.handleAmountChange.bind(this)}
+                                       onKeyDown={this.handleKeyDown.bind(this)}/>
+                                <input type="text" className="form-conrol width-20 margin-left" placeholder="Unit"
+                                       value={this.state.editUnit}
+                                       onChange={this.handleUnitChange.bind(this)}
+                                       onKeyDown={this.handleKeyDown.bind(this)}/>
+                                <input type="text" className="form-conrol width-60 margin-left" placeholder="Name"
+                                       value={this.state.editProduct}
+                                       onChange={this.handleProductChange.bind(this)}
+                                       onKeyDown={this.handleKeyDown.bind(this)}/>
+                            </div>
+                            <div className="form-group">
+                                <span className="form-conrol width-40">
+                                    <AisleDropdown value={this.props.item.aisle}
+                                                   handleAisleChange={this.handleAisleChange.bind(this)}/>
+                                </span>
+                                <span className="padding-left width-40">{this.props.item.recipe}</span>
+                            </div>
                         </div>
                     </div>
-                </form>
+                </span>
+                <span className="input-group-addon">
+                    <Button type="ok" handleClick={this.handleSubmit.bind(this)}/>
+                </span>
             </div>
         );
     }
