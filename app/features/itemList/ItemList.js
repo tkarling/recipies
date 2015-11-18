@@ -54,7 +54,7 @@ class ItemList extends React.Component {
 
     getLineElement (item) {
         return (
-            <div className="" key={item.id}>
+            <div className="" key={item.key}>
                 <ItemLine item={item} showDeleting={this.state.showDeleting} speech={this.state.speech}/>
             </div>
         );

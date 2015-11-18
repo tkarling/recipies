@@ -3,54 +3,56 @@ var EventEmitter = require('events').EventEmitter;
 
 var CHANGE_EVENT = 'change';
 
-var items = [{
-    id: 1,
-    product: 'milk',
-    aisle: 1,
-    amount: 2,
-    recipe: 'favorites',
-    unit: 'gallons',
-    bought: true
-}, {
-    id: 2,
-    product: 'very long name of a product this is',
-    aisle: 2,
-    amount: 1,
-    recipe: 'favorites',
-    bought: false
-}, {
-    id: 3,
-    product: 'eggs',
-    aisle: 1,
-    amount: 1,
-    recipe: 'favorites',
-    unit: 'dozen',
-    bought: false
-}];
+var items = [];
+var myFirebaseRef = new Firebase("https://blinding-heat-8535.firebaseio.com/ShoppingList");
 
-function toggleBought(item) {
-    item.bought = ! item.bought;
-}
-
-var nextIndex = items.length + 1;
-function addItem(item) {
-    item.id = nextIndex++;
-    items.unshift(item);
-}
-
-function deleteItem(item) {
+function getItemIndex(key) {
     for(var i = 0; i < items.length; i++) {
-        if(item.id === items[i].id) {
-            items.splice(i, 1);
-            return;
+        if(key === items[i].key) {
+            return i;
         }
     }
 }
 
+var nextIndex = 0;
+myFirebaseRef.on("child_added", function(childSnapshot) {
+    items.unshift({
+        key: childSnapshot.key(),
+        item: childSnapshot.val()
+    });
+    items[0].id = nextIndex++;
+    emitChange();
+});
+
+myFirebaseRef.on('child_changed', function(childSnapshot, prevChildKey) {
+    var changedItemIndex = getItemIndex(childSnapshot.key());
+    items[changedItemIndex].item = childSnapshot.val();
+    emitChange();
+});
+
+myFirebaseRef.on("child_removed", function(childSnapshot) {
+    var changedItemIndex = getItemIndex(childSnapshot.key());
+    items.splice(changedItemIndex, 1);
+    emitChange();
+});
+
+
+function toggleBought(item) {
+    saveItem(item, {
+       bought: ! item.item.bought
+    });
+}
+
+function addItem(item) {
+    myFirebaseRef.push().set(item);
+}
+
+function deleteItem(item) {
+    myFirebaseRef.child(item.key).remove();
+}
+
 function saveItem(item, newValues) {
-    for(var prop in newValues) {
-        item[prop] = newValues[prop];
-    }
+    myFirebaseRef.child(item.key).update(newValues);
 }
 
 function emitChange() {
@@ -74,19 +76,14 @@ class ItemStore extends EventEmitter {
 
 
 function handleAction(action) {
-    //console.log("handleAction", action.type);
     if(action.type === 'add_item') {
         addItem(action.item);
-        emitChange();
     } else if(action.type === 'delete_item') {
         deleteItem(action.item);
-        emitChange();
     } else if(action.type === 'save_item') {
-            saveItem(action.item, action.newValues);
-            emitChange();
+        saveItem(action.item, action.newValues);
     } else if(action.type === 'toggle_bought') {
         toggleBought(action.item);
-        emitChange();
     }
 }
 
@@ -96,15 +93,3 @@ ItemStore.dispatchToken = AppDispatcher.register(handleAction);
 
 export default itemStore;
 
- //following for testing
-//function logItems() {
-//    items.forEach((item) => {
-//       console.log(item.product);
-//    });
-//}
-//
-//console.log("itemStore before");
-//logItems();
-//addItem({product:"apples", amount: 1});
-//console.log("itemStore after");
-//logItems();

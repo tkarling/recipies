@@ -3,18 +3,22 @@ var EventEmitter = require('events').EventEmitter;
 
 var CHANGE_EVENT = 'change';
 
-var aisles = [{id: 0, name: 'unknown'},
+var aisles = [
     {
-        id: 1,
+        id: '0',
+        name: 'unknown'
+    },
+    {
+        id: '1',
         name: 'produce'
     }, {
-        id: 2,
+        id: '2',
         name: 'dairy'
     }, {
-        id: 3,
+        id: '3',
         name: 'protein'
     }, {
-        id: 4,
+        id: '4',
         name: 'bakery'
     }];
 
