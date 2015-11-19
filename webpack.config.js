@@ -53,4 +53,7 @@ module.exports = {
         javascript: "./app.js",
         html: "./index.html",
     },
+    devServer: {
+        port: 8888
+    }
 }
